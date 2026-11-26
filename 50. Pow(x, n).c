@@ -2,24 +2,28 @@
 
 double myPow(double x, int n)
 {
-    if (n < 0)
+    long long p = n;
+
+    if (p < 0)
     {
-        return 1.0 / myPow(x, -n);
+        x = 1.0 / x;
+        p = -p;
     }
 
-    if (n == 0)
+    double result = 1.0;
+
+    while (p > 0)
     {
-        return 1.0;
+        if (p % 2 == 1)
+        {
+            result *= x;
+        }
+
+        x *= x;
+        p /= 2;
     }
 
-    double half = myPow(x, n / 2);
-
-    if (n % 2 == 0)
-    {
-        return half * half;
-    }
-
-    return half * half * x;
+    return result;
 }
 
 int main()
@@ -27,15 +31,13 @@ int main()
     double x;
     int n;
 
-    printf("Enter base (x): ");
+    printf("Enter base: ");
     scanf("%lf", &x);
 
-    printf("Enter exponent (n): ");
+    printf("Enter exponent: ");
     scanf("%d", &n);
 
-    double result = myPow(x, n);
-
-    printf("Result: %.6f\n", result);
+    printf("Result: %.6f\n", myPow(x, n));
 
     return 0;
 }
